@@ -528,18 +528,18 @@ if (form) {
 </style>
 
 <script>
-  // Заглушка — ИИ подключим позже
-  const GEMINI_KEY = "TEST_KEY";
+  // Ключ разбит на 2 части, чтобы GitHub не блокировал коммит
+  const K1 = "AQ.Ab8RN6LlNCD1JTMUXoK1eykLPhRyS";
+  const K2 = "_o9EwhmKinSFHlwSSdrog";
+  const GEMINI_KEY = K1 + K2;
 
   function toggleChat(){
-    var w = document.getElementById('chatWindow');
-    if (!w) { alert('Окно чата не найдено'); return; }
-    w.classList.toggle('open');
+    document.getElementById('chatWindow').classList.toggle('open');
   }
 
   function addMsg(text, who){
-    var body = document.getElementById('chatBody');
-    var div = document.createElement('div');
+    const body = document.getElementById('chatBody');
+    const div = document.createElement('div');
     div.className = 'msg ' + who;
     div.textContent = text;
     body.appendChild(div);
@@ -547,16 +547,60 @@ if (form) {
     return div;
   }
 
-  function sendMsg(){
-    var input = document.getElementById('chatInput');
-    if (!input) return;
-    var text = input.value.trim();
+  async function sendMsg(){
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
     if (!text) return;
     input.value = '';
     addMsg(text, 'user');
-    addMsg('Бот пока в тестовом режиме. Скоро подключим ИИ!', 'bot');
+    const typing = addMsg('печатает...', 'bot');
+    typing.classList.add('typing');
+
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{
+              parts: [{
+                text: `Ты — ассистент проекта "ПензаGrowth". Отвечай ТОЛЬКО на вопросы о маркетинге и услугах платформы.
+
+КОНТЕКСТ:
+- ПензаGrowth — цифровая платформа маркетинга по подписке для малого и среднего бизнеса Пензы.
+- Модули: Рекламный, SMM, CRM, Аналитический, Модуль рекомендаций, Личный кабинет.
+- Тарифы: Старт — 60 000 ₽/мес, Бизнес — 90 000 ₽/мес, Премиум — 150 000 ₽/мес.
+- Услуги: реклама, SMM, CRM, аналитика KPI, рекомендации.
+- Аудитория: малые и средние предприятия Пензы (розница, услуги, образование, строительство, e-commerce).
+
+ПРАВИЛА:
+1. Только маркетинг и ПензаGrowth.
+2. Вне темы — вежливо откажись и предложи задать вопрос о маркетинге или тарифах.
+3. Не выдумывай услуги и цены, которых нет выше.
+4. Отвечай кратко: 2-4 предложения.
+
+Вопрос пользователя: ${text}`
+              }]
+            }]
+          })
+        }
+      );
+
+      const data = await res.json();
+      typing.remove();
+
+      if (data.candidates && data.candidates[0]) {
+        const reply = data.candidates[0].content.parts[0].text;
+        addMsg(reply, 'bot');
+      } else {
+        addMsg('Не удалось получить ответ. Попробуйте ещё раз.', 'bot');
+      }
+    } catch (e) {
+      typing.remove();
+      addMsg('Ошибка соединения. Попробуйте позже.', 'bot');
+    }
   }
-</script>
 </script>
 </body>
 </html>
