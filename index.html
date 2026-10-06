@@ -591,11 +591,11 @@ if (form) {
       typing.remove();
 
       if (data.candidates && data.candidates[0]) {
-        const reply = data.candidates[0].content.parts[0].text;
-        addMsg(reply, 'bot');
-      } else {
-        addMsg('Не удалось получить ответ. Попробуйте ещё раз.', 'bot');
-      }
+  const reply = data.candidates[0].content.parts[0].text;
+  addMsg(reply, 'bot');
+} else {
+  addMsg('Ответ Google: ' + JSON.stringify(data).slice(0, 400), 'bot');
+}
     } catch (e) {
       typing.remove();
       addMsg('Ошибка соединения. Попробуйте позже.', 'bot');
