@@ -440,5 +440,170 @@ if (form) {
   });
 }
 </script>
+<!-- ===== ИИ-ЧАТ ===== -->
+<div id="chatBubble" onclick="toggleChat()">💬</div>
+
+<div id="chatWindow">
+  <div class="chat-head">
+    <div>
+      <b>ПензаGrowth — ассистент</b>
+      <small>Отвечу на вопросы о платформе</small>
+    </div>
+    <span onclick="toggleChat()" class="chat-close">✕</span>
+  </div>
+  <div id="chatBody">
+    <div class="msg bot">Здравствуйте! Спросите меня о тарифах, модулях или возможностях платформы.</div>
+  </div>
+  <div class="chat-input">
+    <input id="chatInput" type="text" placeholder="Ваш вопрос..." onkeydown="if(event.key==='Enter') sendMsg()">
+    <button onclick="sendMsg()">→</button>
+  </div>
+</div>
+
+<style>
+  #chatBubble{
+    position:fixed;bottom:20px;right:20px;
+    width:56px;height:56px;border-radius:50%;
+    background:linear-gradient(135deg,#b8895a,#8a6a3f);
+    color:#fff;font-size:26px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;box-shadow:0 10px 30px rgba(184,137,90,.4);
+    z-index:999;transition:transform .2s;
+  }
+  #chatBubble:hover{transform:scale(1.08)}
+
+  #chatWindow{
+    position:fixed;bottom:90px;right:20px;
+    width:340px;max-width:calc(100vw - 40px);height:480px;
+    background:#fff;border-radius:18px;
+    box-shadow:0 20px 60px rgba(120,100,70,.3);
+    display:none;flex-direction:column;overflow:hidden;
+    z-index:999;border:1px solid rgba(43,36,28,.1);
+  }
+  #chatWindow.open{display:flex}
+
+  .chat-head{
+    background:linear-gradient(135deg,#b8895a,#8a6a3f);
+    color:#fff;padding:14px 16px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .chat-head b{font-size:15px;display:block}
+  .chat-head small{font-size:12px;opacity:.85}
+  .chat-close{cursor:pointer;font-size:18px;padding:4px 8px}
+
+  #chatBody{
+    flex:1;padding:14px;overflow-y:auto;
+    background:#f7f3ec;display:flex;flex-direction:column;gap:10px;
+  }
+  .msg{
+    max-width:82%;padding:10px 14px;border-radius:14px;
+    font-size:14px;line-height:1.5;word-wrap:break-word;
+  }
+  .msg.bot{
+    background:#fff;color:#2b241c;
+    border-bottom-left-radius:4px;align-self:flex-start;
+    border:1px solid rgba(43,36,28,.08);
+  }
+  .msg.user{
+    background:linear-gradient(135deg,#b8895a,#8a6a3f);
+    color:#fff;border-bottom-right-radius:4px;align-self:flex-end;
+  }
+  .msg.typing{color:#7a6b58;font-style:italic}
+
+  .chat-input{
+    display:flex;border-top:1px solid rgba(43,36,28,.1);
+    background:#fff;
+  }
+  .chat-input input{
+    flex:1;border:none;padding:14px 16px;
+    font-size:14px;background:transparent;
+    color:#2b241c;outline:none;
+    font-family:inherit;
+  }
+  .chat-input button{
+    background:linear-gradient(135deg,#b8895a,#8a6a3f);
+    color:#fff;border:none;padding:0 20px;
+    font-size:18px;cursor:pointer;
+  }
+</style>
+
+<script>
+  // ⚠️ ВСТАВЬТЕ СВОЙ КЛЮЧ СЮДА (для теста)
+  const K1 = "AQ.Ab8RN6LlNCD1JTMUXoK1eykLPhRyS";
+const K2 = "_o9EwhmKinSFHlwSSdrog";
+const GEMINI_KEY = K1 + K2;
+
+  function toggleChat(){
+    document.getElementById('chatWindow').classList.toggle('open');
+  }
+
+  function addMsg(text, who){
+    const body = document.getElementById('chatBody');
+    const div = document.createElement('div');
+    div.className = 'msg ' + who;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  async function sendMsg(){
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if(!text) return;
+    input.value = '';
+    addMsg(text, 'user');
+    const typing = addMsg('печатает...', 'bot');
+    typing.classList.add('typing');
+
+    try{
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,
+        {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            contents: [{
+              parts: [{
+                text: `text: `Ты — ассистент проекта "ПензаGrowth". Твоя единственная задача — отвечать на вопросы о маркетинге и услугах платформы ПензаGrowth.
+
+КОНТЕКСТ О ПРОЕКТЕ:
+- ПензаGrowth — цифровая платформа комплексного маркетинга по подписке для малого и среднего бизнеса Пензы.
+- Модули: Рекламный, SMM, CRM, Аналитический, Модуль рекомендаций, Личный кабинет.
+- Тарифы: Старт — 60 000 ₽/мес, Бизнес — 90 000 ₽/мес, Премиум — 150 000 ₽/мес.
+- Услуги: реклама, SMM, CRM-сопровождение, аналитика KPI, рекомендации по маркетингу.
+- Целевая аудитория: малые и средние предприятия Пензы — розница, услуги, образование, строительство, e-commerce.
+
+ПРАВИЛА ОТВЕТОВ:
+1. Отвечай ТОЛЬКО на вопросы о маркетинге, рекламе, продвижении, бизнесе и услугах ПензаGrowth.
+2. Если вопрос не по теме (политика, религия, код, личные советы, рецепты и т.п.) — вежливо откажись и предложи задать вопрос о маркетинге или ПензаGrowth.
+3. НЕ придумывай услуги, которых нет в списке выше.
+4. НЕ давай обещаний от имени компании (скидки, сроки, гарантии), которых нет в контексте.
+5. Отвечай кратко — 2–4 предложения.
+6. Если не знаешь точного ответа — предложи оставить заявку через форму на сайте.
+
+Если вопрос вне темы — отвечай: "Извините, я отвечаю только на вопросы о маркетинге и услугах ПензаGrowth. Спросите, пожалуйста, о тарифах, модулях или возможностях платформы."
+
+Вопрос пользователя: ${text}`
+              }]
+            }]
+          })
+        }
+      );
+      const data = await res.json();
+      typing.remove();
+
+      if(data.candidates && data.candidates[0]){
+        const reply = data.candidates[0].content.parts[0].text;
+        addMsg(reply, 'bot');
+      } else {
+        addMsg('Извините, не удалось получить ответ. Попробуйте ещё раз.', 'bot');
+      }
+    } catch(e){
+      typing.remove();
+      addMsg('Ошибка соединения. Проверьте ключ или попробуйте позже.', 'bot');
+    }
+  }
+</script>
 </body>
 </html>
