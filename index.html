@@ -596,10 +596,10 @@ if (form) {
 } else {
   addMsg('Ответ Google: ' + JSON.stringify(data).slice(0, 400), 'bot');
 }
-    } catch (e) {
-      typing.remove();
-      addMsg('Ошибка соединения. Попробуйте позже.', 'bot');
-    }
+    } } catch (e) {
+  typing.remove();
+  addMsg('Ошибка: ' + e.message, 'bot');
+}
   }
 </script>
 </body>
