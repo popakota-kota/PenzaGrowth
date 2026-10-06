@@ -528,10 +528,13 @@ if (form) {
 </style>
 
 <script>
-  // Ключ разбит на 2 части, чтобы GitHub не блокировал коммит
-  const K1 = "AQ.Ab8RN6I3QjP_BH531Fualz11";
-  const K2 = "xaEzp9kzzk31DfDQgHX09sURuQ";
+  // Ключ разбит на 2 части
+  const K1 = "AIzaSy";
+  const K2 = "ВСТАВЬТЕ_ЗДЕСЬ_ВТОРУЮ_ЧАСТЬ";
   const GEMINI_KEY = K1 + K2;
+
+  // Модель — её легко поменять
+  const MODEL = "gemini-2.0-flash";
 
   function toggleChat(){
     document.getElementById('chatWindow').classList.toggle('open');
@@ -556,50 +559,43 @@ if (form) {
     const typing = addMsg('печатает...', 'bot');
     typing.classList.add('typing');
 
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/'
+              + MODEL + ':generateContent?key=' + GEMINI_KEY;
+
     try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${GEMINI_KEY}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{
-              parts: [{
-                text: `Ты — ассистент проекта "ПензаGrowth". Отвечай ТОЛЬКО на вопросы о маркетинге и услугах платформы.
-
-КОНТЕКСТ:
-- ПензаGrowth — цифровая платформа маркетинга по подписке для малого и среднего бизнеса Пензы.
-- Модули: Рекламный, SMM, CRM, Аналитический, Модуль рекомендаций, Личный кабинет.
-- Тарифы: Старт — 60 000 ₽/мес, Бизнес — 90 000 ₽/мес, Премиум — 150 000 ₽/мес.
-- Услуги: реклама, SMM, CRM, аналитика KPI, рекомендации.
-- Аудитория: малые и средние предприятия Пензы (розница, услуги, образование, строительство, e-commerce).
-
-ПРАВИЛА:
-1. Только маркетинг и ПензаGrowth.
-2. Вне темы — вежливо откажись и предложи задать вопрос о маркетинге или тарифах.
-3. Не выдумывай услуги и цены, которых нет выше.
-4. Отвечай кратко: 2-4 предложения.
-
-Вопрос пользователя: ${text}`
-              }]
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: 'Ты — ассистент проекта "ПензаGrowth". Отвечай ТОЛЬКО на вопросы о маркетинге и услугах платформы.\n\n'
+                  + 'КОНТЕКСТ:\n'
+                  + '- ПензаGrowth — цифровая платформа маркетинга по подписке для малого и среднего бизнеса Пензы.\n'
+                  + '- Модули: Рекламный, SMM, CRM, Аналитический, Модуль рекомендаций, Личный кабинет.\n'
+                  + '- Тарифы: Старт — 60 000 ₽/мес, Бизнес — 90 000 ₽/мес, Премиум — 150 000 ₽/мес.\n\n'
+                  + 'ПРАВИЛА:\n'
+                  + '1. Только маркетинг и ПензаGrowth.\n'
+                  + '2. Вне темы — вежливо откажись.\n'
+                  + '3. Отвечай кратко: 2-4 предложения.\n\n'
+                  + 'Вопрос: ' + text
             }]
-          })
-        }
-      );
+          }]
+        })
+      });
 
       const data = await res.json();
       typing.remove();
 
       if (data.candidates && data.candidates[0]) {
-  const reply = data.candidates[0].content.parts[0].text;
-  addMsg(reply, 'bot');
-} else {
-  addMsg('Ответ Google: ' + JSON.stringify(data).slice(0, 400), 'bot');
-}
-    } } catch (e) {
-  typing.remove();
-  addMsg('Ошибка: ' + e.message, 'bot');
-}
+        addMsg(data.candidates[0].content.parts[0].text, 'bot');
+      } else {
+        addMsg('Ошибка: ' + JSON.stringify(data).slice(0, 300), 'bot');
+      }
+    } catch (e) {
+      typing.remove();
+      addMsg('Ошибка: ' + e.message, 'bot');
+    }
   }
 </script>
 </body>
