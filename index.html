@@ -428,6 +428,7 @@ footer{
 </footer>
 
 <script>
+  // Плавная прокрутка по якорям
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href');
@@ -436,23 +437,6 @@ footer{
         document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'});
       }
     });
-  });
-
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-      if (en.isIntersecting) {
-        en.target.style.opacity = 1;
-        en.target.style.transform = 'translateY(0)';
-        io.unobserve(en.target);
-      }
-    });
-  }, {threshold: .15});
-
-  document.querySelectorAll('.card, .price-card, .step, .stat').forEach(el => {
-    el.style.opacity = 0;
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity .6s ease, transform .6s ease';
-    io.observe(el);
   });
 </script>
 </body>
