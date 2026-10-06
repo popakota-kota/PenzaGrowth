@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ПензаGrowth — цифровой маркетинг для малого бизнеса</title>
+<style>
 :root{
   --bg:#f7f3ec;
   --bg-soft:#efe7da;
@@ -119,11 +120,11 @@ nav ul a:hover{color:var(--text)}
 }
 @keyframes grow{from{height:0}}
 
-/* ===== SECTIONS ===== */
-section{padding:70px 24px;max-width:1120px;margin:0 auto}
+/* ===== SECTIONS: ===== */
+section{padding:70px 3224px;max-width:1120px;pxmargin:0 auto}
 .sec-title{
-  font-size:clamp(24px,3vw,34px);font-weight:800;
-  margin-bottom:14px;letter-spacing:-.4px;
+;  font-size:clampfont(24px,3vw,34px);font-weight:800;
+  margin-bottom:14-weightpx;letter-spacing:-.4px;
   color:var(--text);
 }
 .sec-sub{color:var(--muted);max-width:640px;margin-bottom:40px}
@@ -198,7 +199,7 @@ section{padding:70px 24px;max-width:1120px;margin:0 auto}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
 @media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
 .stat b{
-  display:block;font-size:32px;font-weight:800;
+  display:block;font-size:800;
   background:linear-gradient(135deg,var(--accent),var(--accent-2));
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
@@ -246,8 +247,187 @@ footer{
   padding:32px 24px;text-align:center;color:var(--muted);font-size:14px;
   background:var(--bg-soft);
 }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><span>ПензаGrowth</span></div>
+    <ul>
+      <li><a href="#problem">Проблема</a></li>
+      <li><a href="#product">Продукт</a></li>
+      <li><a href="#pricing">Тарифы</a></li>
+      <li><a href="#how">Как работает</a></li>
+    </ul>
+    <a href="#contact" class="btn btn-primary">Оставить заявку</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="badge">Цифровой маркетинг по подписке</div>
+    <h1>Весь маркетинг <em>в одном кабинете</em> для малого бизнеса Пензы</h1>
+    <p>Реклама, SMM, CRM и аналитика KPI — в единой цифровой системе. Без своего отдела маркетинга, без разрозненных подрядчиков. Прозрачные отчёты и рекомендации по каждому рублю.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Получить демо</a>
+      <a href="#product" class="btn btn-ghost">Что внутри →</a>
+    </div>
+  </div>
+
+  <div class="dash">
+    <div class="dash-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="kpi-row">
+      <div class="kpi"><b>128</b><small>Заявок</small></div>
+      <div class="kpi"><b>4.2%</b><small>Конверсия</small></div>
+      <div class="kpi"><b>1 240 ₽</b><small>CPL</small></div>
+    </div>
+    <div class="chart">
+      <div class="bar" style="height:40%;animation-delay:.0s"></div>
+      <div class="bar" style="height:65%;animation-delay:.1s"></div>
+      <div class="bar" style="height:50%;animation-delay:.2s"></div>
+      <div class="bar" style="height:80%;animation-delay:.3s"></div>
+      <div class="bar" style="height:60%;animation-delay:.4s"></div>
+      <div class="bar" style="height:95%;animation-delay:.5s"></div>
+      <div class="bar" style="height:72%;animation-delay:.6s"></div>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <h2 class="sec-title">Проблема, которую мы решаем</h2>
+  <p class="sec-sub">Малый бизнес ведёт маркетинг разрозненно: разные подрядчики, ручной контроль, непонятные цифры. Собственник не видит целостной картины.</p>
+  <ul class="prob-list">
+    <li>Разрозненные инструменты и подрядчики — реклама, соцсети, сайт и CRM не связаны.</li>
+    <li>Недостаток времени и компетенций у собственника для системного маркетинга.</li>
+    <li>Сложно оценить эффективность рекламных расходов.</li>
+    <li>Нет единого и понятного отчёта по показателям.</li>
+    <li>Дорого содержать собственный отдел маркетинга.</li>
+  </ul>
+</section>
+
+<section id="product">
+  <h2 class="sec-title">Модули платформы</h2>
+  <p class="sec-sub">Пять модулей в единой цифровой системе с личным кабинетом, KPI и рекомендациями.</p>
+  <div class="grid-3">
+    <div class="card">
+      <div class="icon">📣</div>
+      <h3>Рекламный модуль</h3>
+      <p>Планирование и сопровождение рекламных кампаний. Привлечение целевого трафика.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📱</div>
+      <h3>SMM-модуль</h3>
+      <p>Контент-план, публикации, аналитика соцсетей. Системное ведение аккаунтов.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🎯</div>
+      <h3>CRM-модуль</h3>
+      <p>Воронка заявок и клиентов. Контроль движения клиента до продажи.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📊</div>
+      <h3>Аналитический модуль</h3>
+      <p>Свод KPI и динамика показателей. Оценка эффективности расходов.</p>
+    </div>
+    <div class="card">
+      <div class="icon">💡</div>
+      <h3>Модуль рекомендаций</h3>
+      <p>Предложения по дальнейшим действиям. Сокращение времени на решения.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🔒</div>
+      <h3>Личный кабинет</h3>
+      <p>Единая точка входа: заявки, каналы, отчёты и следующий шаг.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="stats">
+    <div class="stat"><b>5</b><span>модулей в системе</span></div>
+    <div class="stat"><b>450 000 ₽</b><span>плановая выручка/мес</span></div>
+    <div class="stat"><b>242 000 ₽</b><span>плановая прибыль/мес</span></div>
+    <div class="stat"><b>4–5 мес</b><span>окупаемость</span></div>
+  </div>
+</section>
+
+<section id="pricing">
+  <h2 class="sec-title">Тарифы</h2>
+  <p class="sec-sub">Подписка с понятным составом услуг и прозрачными KPI. Начните с базового пакета и масштабируйтесь.</p>
+  <div class="grid-3">
+    <div class="price-card">
+      <h3>Старт</h3>
+      <div class="price">60 000 ₽<small>/мес</small></div>
+      <ul>
+        <li>Один канал продвижения</li>
+        <li>Базовый контент-план</li>
+        <li>Отчёт по KPI раз в месяц</li>
+        <li>Личный кабинет</li>
+      </ul>
+      <a href="#contact" class="btn btn-ghost" style="width:100%;text-align:center">Выбрать</a>
+    </div>
+
+    <div class="price-card pop">
+      <h3>Бизнес</h3>
+      <div class="price">90 000 ₽<small>/мес</small></div>
+      <ul>
+        <li>Реклама + SMM + CRM</li>
+        <li>Расширенная аналитика</li>
+        <li>Отчёт по KPI каждые 2 недели</li>
+        <li>Рекомендации по действиям</li>
+        <li>Поддержка менеджера</li>
+      </ul>
+      <a href="#contact" class="btn btn-primary" style="width:100%;text-align:center">Выбрать</a>
+    </div>
+
+    <div class="price-card">
+      <h3>Премиум</h3>
+      <div class="price">150 000 ₽<small>/мес</small></div>
+      <ul>
+        <li>Все модули платформы</li>
+        <li>Индивидуальная стратегия</li>
+        <li>Еженедельные отчёты</li>
+        <li>Приоритетная поддержка</li>
+        <li>Доп. услуги (SEO, аудит)</li>
+      </ul>
+      <a href="#contact" class="btn btn-ghost" style="width:100%;text-align:center">Выбрать</a>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <h2 class="sec-title">Как проходит работа</h2>
+  <p class="sec-sub">Шесть этапов — от анализа бизнеса до масштабирования сопровождения.</p>
+  <div class="steps">
+    <div class="step"><div><b>Анализ бизнеса и постановка KPI</b><span>Определяем цели и метрики успеха.</span></div></div>
+    <div class="step"><div><b>Настройка кабинета и интеграций</b><span>Подключаем сайт, рекламу, соцсети и CRM.</span></div></div>
+    <div class="step"><div><b>Запуск маркетинговых инструментов</b><span>Стартуем кампании и контент.</span></div></div>
+    <div class="step"><div><b>Сбор данных и контроль KPI</b><span>Отслеживаем показатели в реальном времени.</span></div></div>
+    <div class="step"><div><b>Отчёт и рекомендации</b><span>Показываем результат и следующие шаги.</span></div></div>
+    <div class="step"><div><b>Корректировка и сопровождение</b><span>Улучшаем стратегию и масштабируем.</span></div></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="cta">
+    <h2>Покажем прототип личного кабинета</h2>
+    <p>Оставьте заявку — проведём демонстрацию сценария работы системы и рассчитаем пакет под ваш бизнес.</p>
+    <form onsubmit="event.preventDefault(); this.reset(); alert('Спасибо! Мы свяжемся с вами.');">
+      <input type="text" placeholder="Ваше имя" required>
+      <input type="tel" placeholder="Телефон" required>
+      <input type="email" placeholder="Email" required>
+      <textarea rows="3" placeholder="Кратко о бизнесе"></textarea>
+      <button class="btn btn-primary" type="submit" style="width:100%">Отправить заявку</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  © 2025 ПензаGrowth — цифровое маркетинговое сопровождение малого бизнеса Пензы. Прототип личного кабинета.
+</footer>
+
 <script>
-  // Плавная прокрутка по якорям
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href');
@@ -258,7 +438,6 @@ footer{
     });
   });
 
-  // Анимация карточек при появлении
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => {
       if (en.isIntersecting) {
